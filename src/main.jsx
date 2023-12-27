@@ -111,7 +111,8 @@ const router = createBrowserRouter([
       //admin routes
       {
         path:'manageusers',
-        element: <AdminRoutes><ManageUsers/></AdminRoutes>
+        element: <AdminRoutes><ManageUsers/></AdminRoutes>,
+        loader: ()=>fetch('https://shaadi-server.vercel.app/membercount')
       },
       {
         path: 'premiumrequests',

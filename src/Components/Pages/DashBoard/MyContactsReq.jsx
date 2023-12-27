@@ -9,15 +9,22 @@ import Lottie from "lottie-react";
 import loadingAnimation from '../../../Animations/Animation - Loading.json'
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 
 const MyContactsReq = () => {
+    const {user}= useContext(AuthContext)
     const [requestedEmails, isLoading, refetch] = useRequests()
-    const status = requestedEmails.map(email=> {return email.status});
-    console.log(status[0])
+    const status = requestedEmails.map(email => { return email.status });
+    const reqemail = requestedEmails.map(email => {return email.requestedEmail})
+    console.log(reqemail[0])
 
     const handleConfirm = _id => {
         console.log(_id)
+
+        axios.post('https://shaadi-server.vercel.app/friends', { email : reqemail[0] , requestEmail: user.email })
+            .then(res => console.log(res))
 
         axios.patch(`https://shaadi-server.vercel.app/requests/${_id}`, { status: 'confirm' })
             .then(res => {
@@ -82,9 +89,9 @@ const MyContactsReq = () => {
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                       {
-                                        status[0] && <th>Contacts</th>
-                                       }
+                                        {
+                                            status[0] && <th>Contacts</th>
+                                        }
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -107,17 +114,17 @@ const MyContactsReq = () => {
                                                             </div>
                                                             <div>
                                                                 <div className="font-bold">{requested.requestedUserName}</div>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         {
-                                                            requested.status ==='confirm' &&
+                                                            requested.status === 'confirm' &&
                                                             <div>
                                                                 <div className="font-bold">{requested.requestphone}</div>
                                                                 <div className="text-sm opacity-50">
-                                                                Contact Email : {requested.requestedEmail} 
+                                                                    Contact Email : {requested.requestedEmail}
                                                                 </div>
                                                             </div>
                                                         }
@@ -126,12 +133,12 @@ const MyContactsReq = () => {
                                                     <td className="flex items-center gap-5 ">
                                                         {
                                                             requested.status === 'confirm' ?
-                                                            <div className="flex items-center gap-4">
-                                                                <p>Confirmed</p>
-                                                                <Link to={`/dashboard/fullbiodata/${requested._id}`} className="btn bg-green-800 text-white hover:text-black">Go to Profile</Link>
-                                                            </div>
+                                                                <div className="flex items-center gap-4">
+                                                                    <p>Confirmed</p>
+                                                                    <Link to={`/dashboard/fullbiodata/${requested._id}`} className="btn bg-green-800 text-white hover:text-black">Go to Profile</Link>
+                                                                </div>
 
-                                                            :
+                                                                :
                                                                 <>
                                                                     <button onClick={() => handleConfirm(requested._id)} className="btn bg-green-800 text-white hover:text-black"><TiTick className="text-5xl" /></button>
                                                                     <button onClick={() => handleDelete(requested._id)} className="btn bg-red-800 text-white hover:text-black"><ImCross className="text-2xl" /></button>

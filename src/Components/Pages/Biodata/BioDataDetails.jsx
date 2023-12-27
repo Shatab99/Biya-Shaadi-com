@@ -10,6 +10,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useCheckRole from "../../Hooks/useCheckRole";
 import { Helmet } from "react-helmet-async";
+import useFriends from "../../Hooks/useFriends";
+
 
 
 const BioDataDetails = () => {
@@ -18,9 +20,12 @@ const BioDataDetails = () => {
     const { user } = useContext(AuthContext)
     const [genders, isLoading] = useGender({ gender })
     const checkEmail = user.email
-    const {checkRole}=useCheckRole({checkEmail})
-    console.log(checkRole)
-    
+    const { checkRole } = useCheckRole({ checkEmail })
+    const requestEmail = user.email
+    const { friends } = useFriends({ requestEmail })
+    const friend = friends.map(friend => { return friend?.email })
+    const newFriend = friend[0];
+    console.log(newFriend)
 
     const handleRequest = () => {
         const requestedEmail = user.email;
@@ -37,6 +42,8 @@ const BioDataDetails = () => {
             seeBiodataId
         }
         console.log(requestedForm)
+
+
         axios.post(`https://shaadi-server.vercel.app/requests/`, requestedForm)
             .then(res => {
                 console.log("posted", res.data)
@@ -69,14 +76,15 @@ const BioDataDetails = () => {
                 </div>
                 <div className="mt-12">
                     {
-                        user.email === email ? <button className="btn bg-green-900 text-white hover:text-black" disabled>Your Cannot Request Own Contact</button> : <button onClick={handleRequest} className="btn bg-green-900 text-white hover:text-black">Request Contact</button>
+                        newFriend === email ? <p className="animate-bounce">You are friends !!</p> :
+                            user.email === email ? <button className="btn bg-green-900 text-white hover:text-black" disabled>Your Cannot Request Own Contact</button> : <button onClick={handleRequest} className="btn bg-green-900 text-white hover:text-black">Request Contact</button>
                     }
                 </div>
                 <div className="mt-8">
                     {
-                        checkRole.member === 'premium' ||checkRole.role === 'admin'  ? <Link to={`/dashboard/fullbiodatauser/${email}`} className="btn bg-blue-800 text-white hover:text-black">See Full information </Link>
-                        :
-                        <Link to={`/dashboard/checkout`} className="btn bg-blue-800 text-white hover:text-black">See Full information </Link>
+                        checkRole.member === 'premium' || checkRole.role === 'admin' || newFriend === email ? <Link to={`/dashboard/fullbiodatauser/${email}`} className="btn bg-blue-800 text-white hover:text-black">See Full information </Link>
+                            :
+                            <Link to={`/dashboard/checkout`} className="btn bg-blue-800 text-white hover:text-black">See Full information </Link>
                     }
                 </div>
             </div>

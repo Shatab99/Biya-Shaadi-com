@@ -2,12 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useCheckMembers from "../../Hooks/useCheckMembers";
 
 
 const NavBar = ({ children }) => {
 
     const [stickyClass, setStickyClass] = useState('relative')
     const { user, logOut } = useContext(AuthContext)
+    const { checkUsers } = useCheckMembers()
+
+    const checkUser= checkUsers.map(user => {return user.email})
 
     useEffect(() => {
         window.addEventListener('scroll', stickNavbar);
@@ -79,21 +83,25 @@ const NavBar = ({ children }) => {
                             <li><Link to={'/contactus'}>Contact Us</Link></li>
                             {
                                 user ?
-                                    <div className="dropdown dropdown-end">
-                                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                            <div className="w-10 rounded-full">
-                                                <img alt="Tailwind CSS Navbar component" src={user.photoURL} />
-                                            </div>
-                                        </label>
-                                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                            <li>
-                                                <Link to={'/dashboard/userhome'} className="justify-between">
-                                                    Dashboard
-                                                </Link>
-                                            </li>
-                                            <li><button onClick={handleSignOut}>Logout</button></li>
-                                        </ul>
-                                    </div>
+                                    checkUser.includes(user.email) ?
+                                        <div className="dropdown dropdown-end">
+                                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                                <div className="w-10 rounded-full">
+                                                    <img alt="Tailwind CSS Navbar component" src={user.photoURL} />
+                                                </div>
+                                            </label>
+                                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                                                <li>
+                                                    <Link to={'/dashboard/userhome'} className="justify-between">
+                                                        Dashboard
+                                                    </Link>
+                                                </li>
+                                                <li><button onClick={handleSignOut}>Logout</button></li>
+                                            </ul>
+                                        </div>
+                                        :
+                                        <li><Link to={'/login'}>Sign In</Link></li>
+
                                     : <li><Link to={'/login'}>Sign In</Link></li>
                             }
                         </ul>

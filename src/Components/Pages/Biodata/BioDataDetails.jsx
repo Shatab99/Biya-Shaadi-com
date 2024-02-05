@@ -44,7 +44,7 @@ const BioDataDetails = () => {
         console.log(requestedForm)
 
 
-        axios.post(`https://shaadi-server.vercel.app/requests/`, requestedForm)
+        axios.post(`http://localhost:5000/requests/`, requestedForm)
             .then(res => {
                 console.log("posted", res.data)
                 Swal.fire({

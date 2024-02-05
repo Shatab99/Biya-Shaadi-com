@@ -13,7 +13,7 @@ const PremiumRequets = () => {
 
     const handleApprove = (_id, email) => {
         console.log(_id, email)
-        axios.patch(`https://shaadi-server.vercel.app/members/makepremium/${email}`, { member: 'premium' })
+        axios.patch(`http://localhost:5000/members/makepremium/${email}`, { member: 'premium' })
             .then(res => {
                 console.log(res.data)
                 Swal.fire({
@@ -26,7 +26,7 @@ const PremiumRequets = () => {
 
             })
 
-        axios.patch(`https://shaadi-server.vercel.app/payments/${_id}`, { status: 'confirm' })
+        axios.patch(`http://localhost:5000/payments/${_id}`, { status: 'confirm' })
             .then(res => {
                 console.log(res.user)
             })
@@ -48,7 +48,7 @@ const PremiumRequets = () => {
             confirmButtonText: "Yes!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://shaadi-server.vercel.app/payments/${_id}`)
+                axios.delete(`http://localhost:5000/payments/${_id}`)
                     .then(res => {
                         console.log(res.data)
                         Swal.fire({

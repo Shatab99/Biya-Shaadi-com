@@ -24,7 +24,7 @@ const Favourites = () => {
             confirmButtonText: "Yes, Cancel it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://shaadi-server.vercel.app/requests/${_id}`)
+                axios.delete(`http://localhost:5000/requests/${_id}`)
                     .then(res => {
                         console.log('Deleted', res.data)
                         if (res.data.deletedCount > 0) {

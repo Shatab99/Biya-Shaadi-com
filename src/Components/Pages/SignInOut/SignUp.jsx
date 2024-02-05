@@ -23,7 +23,7 @@ const SignUp = () => {
                     name: res.user.displayName, email: res.user.email,
                     profile_pic: res.user.photoURL
                 }
-                axios.post('https://shaadi-server.vercel.app/members', userInfo)
+                axios.post('http://localhost:5000/members', userInfo)
                     .then(res => {
                         console.log(res.user)
                         navigate(location?.state ? location?.state : '/')
@@ -58,7 +58,7 @@ const SignUp = () => {
                     name: name, profile_pic: photo,
                     email: email
                 }
-                axios.post('https://shaadi-server.vercel.app/members', userInfo)
+                axios.post('http://localhost:5000/members', userInfo)
                     .then(res => {
                         console.log(res.user)
                         Swal.fire({

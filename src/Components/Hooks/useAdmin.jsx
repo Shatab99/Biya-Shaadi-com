@@ -10,7 +10,7 @@ const useAdmin = () => {
     const { data: member = {}, isLoading, refetch } = useQuery({
         queryKey: ['member', email],
         queryFn: async () => {
-            const res = await axios.get(`https://shaadi-server.vercel.app/members/admin/${email}`)
+            const res = await axios.get(`http://localhost:5000/members/admin/${email}`)
             return res.data
         }
     })

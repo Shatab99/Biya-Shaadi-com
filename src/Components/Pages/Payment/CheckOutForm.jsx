@@ -16,7 +16,7 @@ const CheckOutForm = () => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        axios.post('https://shaadi-server.vercel.app/create-payment-intent', { price })
+        axios.post('http://localhost:5000/create-payment-intent', { price })
             .then(res => {
                 console.log(res.data.clientSecret)
                 setClientSecret(res.data.clientSecret)
@@ -92,7 +92,7 @@ const CheckOutForm = () => {
             status: 'pending'
         }
 
-        const res = await axios.post('https://shaadi-server.vercel.app/payments', payment)
+        const res = await axios.post('http://localhost:5000/payments', payment)
         console.log('Payment Saved', res.data)
 
 

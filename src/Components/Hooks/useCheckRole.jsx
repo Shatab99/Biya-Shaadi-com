@@ -6,7 +6,7 @@ const useCheckRole = ({checkEmail}) => {
     const {data : checkRole ={}, isLoading , refetch}= useQuery({
         queryKey : ['checkRole', checkEmail],
         queryFn : async()=>{
-            const res = await axios.get(`https://shaadi-server.vercel.app/members/checkrole/${checkEmail}`)
+            const res = await axios.get(`http://localhost:5000/members/checkrole/${checkEmail}`)
             return res.data
         }
     })

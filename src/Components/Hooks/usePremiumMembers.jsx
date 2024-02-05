@@ -6,7 +6,7 @@ const usePremiumMembers = () => {
     const {data : premiums =[], isLoading, refetch}= useQuery({
         queryKey : ['premiums'],
         queryFn : async ()=>{
-            const res = await axios.get('https://shaadi-server.vercel.app/memberpremium')
+            const res = await axios.get('http://localhost:5000/memberpremium')
             return res.data;
         }
     })

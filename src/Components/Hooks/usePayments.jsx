@@ -6,7 +6,7 @@ const usePayments = () => {
     const {data : paymentUsers =[], isLoading, refetch }= useQuery({
         queryKey : ['paymentUsers'],
         queryFn : async()=>{
-            const res = await axios.get('https://shaadi-server.vercel.app/payments')
+            const res = await axios.get('http://localhost:5000/payments')
             return res.data;
         }
     })

@@ -6,7 +6,7 @@ const useSeeFullBiodata = ({requestedEmail}) => {
     const {data : fullbiodata=[], isLoading, refetch}= useQuery({
         queryKey:['fullbiodata', requestedEmail],
         queryFn : async()=>{
-            const res= await axios.get(`https://shaadi-server.vercel.app/members/biodata/${requestedEmail}`)
+            const res= await axios.get(`http://localhost:5000/members/biodata/${requestedEmail}`)
             return res.data
         }
     })

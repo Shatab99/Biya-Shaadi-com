@@ -35,7 +35,7 @@ const ManageUsers = () => {
             confirmButtonText: "Yes, make Admin!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`https://shaadi-server.vercel.app/members/makeadmin/${_id}`)
+                axios.patch(`http://localhost:5000/members/makeadmin/${_id}`)
                     .then(res => {
                         console.log(res.data)
                         Swal.fire({
@@ -62,7 +62,7 @@ const ManageUsers = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://shaadi-server.vercel.app/members/deleteuser/${_id}`)
+                axios.delete(`http://localhost:5000/members/deleteuser/${_id}`)
                     .then(res => {
                         console.log(res.data)
                         Swal.fire({

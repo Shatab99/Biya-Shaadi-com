@@ -6,7 +6,7 @@ const useMembers = ({select}) => {
     const{data : members = [], isLoading, refetch}= useQuery({
         queryKey :['members',select],
         queryFn : async ()=>{
-            const res =await axios.get(`https://shaadi-server.vercel.app/members/${select}`)
+            const res =await axios.get(`http://localhost:5000/members/${select}`)
             return res.data
         }
     })

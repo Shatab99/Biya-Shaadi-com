@@ -34,7 +34,7 @@ const EditBiodata = () => {
             contactEmail, presentDivision
         }
         console.log(updateForm)
-        axios.patch(`https://shaadi-server.vercel.app/members/biodata/${user.email}`, updateForm)
+        axios.patch(`http://localhost:5000/members/biodata/${user.email}`, updateForm)
         .then(res=>{
             console.log(res.user)
             Swal.fire({

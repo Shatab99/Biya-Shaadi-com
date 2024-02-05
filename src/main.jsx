@@ -32,6 +32,9 @@ import CheckOut from './Components/Pages/Payment/CheckOut';
 import PremiumRequets from './Components/Pages/DashBoard/Admin/PremiumRequets';
 import ContactUs from './Components/Pages/ContactUs/ContactUs';
 import AboutUs from './Components/Pages/AboutUS/AboutUs';
+import NotfoundUser from './Components/ErrorPages/NotfoundUser';
+import ValidUserRoute from './Components/PrivateRoutes/ValidUserRoute';
+
 
 const router = createBrowserRouter([
   {
@@ -44,12 +47,12 @@ const router = createBrowserRouter([
       },
       {
         path:'biodata',
-        element:<PrivateRoutes><Biodatas/></PrivateRoutes>
+        element:<PrivateRoutes><ValidUserRoute><Biodatas/></ValidUserRoute></PrivateRoutes>
       },
       {
         path:'biodata/:id',
-        element : <PrivateRoutes><BioDataDetails/></PrivateRoutes>,
-        loader : ({params})=> fetch(`https://shaadi-server.vercel.app/members/details/${params.id}`) 
+        element : <PrivateRoutes><ValidUserRoute><BioDataDetails/></ValidUserRoute></PrivateRoutes>,
+        loader : ({params})=> fetch(`http://localhost:5000/members/details/${params.id}`) 
       },
       {
         path:'contactus',
@@ -70,49 +73,53 @@ const router = createBrowserRouter([
     element: <SignUp />
   },
   {
+    path: 'notFoundUser',
+    element:<PrivateRoutes><NotfoundUser/></PrivateRoutes>
+  },
+  {
     path:'dashboard',
-    element:<PrivateRoutes><Dashboard/></PrivateRoutes>,
+    element:<PrivateRoutes><ValidUserRoute><Dashboard/></ValidUserRoute></PrivateRoutes>,
     children:[
       {
         path : 'userhome',
-        element: <PrivateRoutes><UserHome/></PrivateRoutes>
+        element: <PrivateRoutes><ValidUserRoute><UserHome/></ValidUserRoute></PrivateRoutes>
       },
       {
         path : 'editbiodata',
-        element: <PrivateRoutes><EditBiodata/></PrivateRoutes>
+        element: <PrivateRoutes><ValidUserRoute><EditBiodata/></ValidUserRoute></PrivateRoutes>
       },
       {
         path:'mycontacts',
-        element:<PrivateRoutes><MyContactsReq/></PrivateRoutes>
+        element:<PrivateRoutes><ValidUserRoute><MyContactsReq/></ValidUserRoute></PrivateRoutes>
       },
       {
         path: 'favourites',
-        element: <PrivateRoutes><Favourites/></PrivateRoutes>
+        element: <PrivateRoutes><ValidUserRoute><Favourites/></ValidUserRoute></PrivateRoutes>
       },
       {
         path:'fullbiodata/:id',
-        element: <PrivateRoutes><FullBiodata/></PrivateRoutes>,
-        loader : ({params})=> fetch(`https://shaadi-server.vercel.app/requests/seebio/${params.id}`)
+        element: <PrivateRoutes><ValidUserRoute><FullBiodata/></ValidUserRoute></PrivateRoutes>,
+        loader : ({params})=> fetch(`http://localhost:5000/requests/seebio/${params.id}`)
       },
       {
         path : 'fullbiodataviafav/:id',
-        element: <PrivateRoutes><FullbioDataViaFavourites/></PrivateRoutes>,
-        loader : ({params}) => fetch(`https://shaadi-server.vercel.app/requests/seebio/${params.id}`)
+        element: <PrivateRoutes><ValidUserRoute><FullbioDataViaFavourites/></ValidUserRoute></PrivateRoutes>,
+        loader : ({params}) => fetch(`http://localhost:5000/requests/seebio/${params.id}`)
       },
       {
         path:'fullbiodatauser/:email',
-        element : <PrivateRoutes><FullBioDataUser/></PrivateRoutes>,
-        loader : ({params}) => fetch(`https://shaadi-server.vercel.app/members/biodata/${params.email}`)
+        element : <PrivateRoutes><ValidUserRoute><FullBioDataUser/></ValidUserRoute></PrivateRoutes>,
+        loader : ({params}) => fetch(`http://localhost:5000/members/biodata/${params.email}`)
       },
       {
         path : 'checkout',
-        element:<PrivateRoutes><CheckOut/></PrivateRoutes>
+        element:<PrivateRoutes><ValidUserRoute><CheckOut/></ValidUserRoute></PrivateRoutes>
       },
       //admin routes
       {
         path:'manageusers',
         element: <AdminRoutes><ManageUsers/></AdminRoutes>,
-        loader: ()=>fetch('https://shaadi-server.vercel.app/membercount')
+        loader: ()=>fetch('http://localhost:5000/membercount')
       },
       {
         path: 'premiumrequests',

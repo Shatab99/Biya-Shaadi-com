@@ -6,7 +6,7 @@ const useFriends = ({requestEmail}) => {
     const {data : friends=[]}= useQuery({
         queryKey : ['friends',requestEmail],
         queryFn : async()=>{
-            const res = await axios.get(`https://shaadi-server.vercel.app/friends?email=${requestEmail}`)
+            const res = await axios.get(`http://localhost:5000/friends?email=${requestEmail}`)
             return res.data
         }
     })

@@ -9,7 +9,7 @@ const useRequests = () => {
     const {data : requestedEmails =[], isLoading, refetch} = useQuery({
         queryKey:['requestedEmails', user.email],
         queryFn : async()=>{
-            const res = await axios.get(`https://shaadi-server.vercel.app/requests/${user.email}`)
+            const res = await axios.get(`http://localhost:5000/requests/${user.email}`)
             return res.data
         }
     })

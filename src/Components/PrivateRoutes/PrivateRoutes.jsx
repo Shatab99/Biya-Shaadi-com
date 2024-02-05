@@ -5,17 +5,21 @@ import animationLoading from '../../Animations/Animation - Loading.json'
 import { Navigate, useLocation } from "react-router-dom";
 
 
-const PrivateRoutes = ({children}) => {
-    const {user, loading} = useContext(AuthContext) 
+
+const PrivateRoutes = ({ children }) => {
+    const { user, loading } = useContext(AuthContext)
+    
+
     const location = useLocation()
-    if(loading){
-        return <div className="max-w-xs mx-auto"><Lottie animationData={animationLoading}/></div>
+    if (loading) {
+        return <div className="max-w-xs mx-auto"><Lottie animationData={animationLoading} /></div>
     }
-    if(user){
+
+    if (user) {
         return children;
     }
-    
-    return <Navigate state={location.pathname} to={'/login'} replace/>
+
+    return <Navigate state={location.pathname} to={'/login'} replace />
 };
 
 export default PrivateRoutes;

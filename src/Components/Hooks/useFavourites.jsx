@@ -9,7 +9,7 @@ const useFavourites = () => {
     const {data : favourites =[], isLoading, refetch}=useQuery({
         queryKey : ['favourites', user.email],
         queryFn : async()=>{
-            const res = await axios.get(`https://shaadi-server.vercel.app/requests/favorites/${user.email}`)
+            const res = await axios.get(`http://localhost:5000/requests/favorites/${user.email}`)
             return res.data
         }
     })

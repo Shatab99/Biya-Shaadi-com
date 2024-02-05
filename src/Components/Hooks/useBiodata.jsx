@@ -10,7 +10,7 @@ const useBiodata = () => {
     const {data: biodata={}, isLoading , refetch}= useQuery({
         queryKey: ['biodata', user],
         queryFn : async ()=>{
-            const res = await axios.get(`https://shaadi-server.vercel.app/members/biodata/${user.email}`)
+            const res = await axios.get(`http://localhost:5000/members/biodata/${user.email}`)
             return res.data;
         }
     })

@@ -23,10 +23,10 @@ const MyContactsReq = () => {
     const handleConfirm = _id => {
         console.log(_id)
 
-        axios.post('https://shaadi-server.vercel.app/friends', { email : reqemail[0] , requestEmail: user.email })
+        axios.post('http://localhost:5000/friends', { email : reqemail[0] , requestEmail: user.email })
             .then(res => console.log(res))
 
-        axios.patch(`https://shaadi-server.vercel.app/requests/${_id}`, { status: 'confirm' })
+        axios.patch(`http://localhost:5000/requests/${_id}`, { status: 'confirm' })
             .then(res => {
                 console.log(res)
                 refetch();
@@ -55,7 +55,7 @@ const MyContactsReq = () => {
             confirmButtonText: "Yes, Cancel it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`https://shaadi-server.vercel.app/requests/${_id}`)
+                axios.delete(`http://localhost:5000/requests/${_id}`)
                     .then(res => {
                         console.log('Deleted', res.data)
                         if (res.data.deletedCount > 0) {

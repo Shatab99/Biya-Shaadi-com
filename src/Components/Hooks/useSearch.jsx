@@ -6,7 +6,7 @@ const useSearch = ({searchTerm}) => {
     const {data : searchResult=[], isLoading, refetch}=useQuery({
         queryKey : ['searchResult', searchTerm],
         queryFn : async()=>{
-            const res =await axios.get(`https://shaadi-server.vercel.app/search?q=${searchTerm}`)
+            const res =await axios.get(`http://localhost:5000/search?q=${searchTerm}`)
             return res.data
         }
     })
